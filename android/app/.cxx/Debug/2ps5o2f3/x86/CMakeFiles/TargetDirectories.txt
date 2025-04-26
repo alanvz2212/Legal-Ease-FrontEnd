@@ -1,0 +1,2 @@
+C:/Users/alanv/OneDrive/Desktop/New folder (3)/Project/Legal-Ease/FrontEnd/android/app/.cxx/Debug/2ps5o2f3/x86/CMakeFiles/edit_cache.dir
+C:/Users/alanv/OneDrive/Desktop/New folder (3)/Project/Legal-Ease/FrontEnd/android/app/.cxx/Debug/2ps5o2f3/x86/CMakeFiles/rebuild_cache.dir
