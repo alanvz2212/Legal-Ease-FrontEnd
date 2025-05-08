@@ -21,9 +21,9 @@ class _ChatScreenState extends State<ChatScreen> {
   List<Map<String, String>> _messages = [];
 
   final String chatApiUrl =
-      'http://192.168.1.4:8000/chat'; // For sending messages
+      'http://192.168.1.6:8000/chat'; // For sending messages
   final String uploadApiUrl =
-      'http://192.168.1.4:8000/rpr'; // For uploading PDFs
+      'http://192.168.1.6:8000/rpr'; // For uploading PDFs
   bool isTyping = false;
   final ScrollController _scrollController = ScrollController();
   String? _userName; // To store the user's name

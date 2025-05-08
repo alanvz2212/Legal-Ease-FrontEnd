@@ -1,0 +1,4 @@
+Not searching for unused variables given on the command line.
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/alanv/OneDrive/Desktop/Project/Legal-Ease/FrontEnd/android/app/.cxx/Debug/a215h402/x86_64

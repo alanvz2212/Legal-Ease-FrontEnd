@@ -381,18 +381,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               color: Colors.grey.withOpacity(0.5),
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 0,
-                              horizontal: 10,
-                            ),
-                            child: Text(
-                              'Sign up with',
-                              style: TextStyle(
-                                color: Colors.black45,
-                              ),
-                            ),
-                          ),
+                          // const Padding(
+                          //   padding: EdgeInsets.symmetric(
+                          //     vertical: 0,
+                          //     horizontal: 10,
+                          //   ),
+                          //   child: Text(
+                          //     'Sign up with',
+                          //     style: TextStyle(
+                          //       color: Colors.black45,
+                          //     ),
+                          //   ),
+                          // ),
                           Expanded(
                             child: Divider(
                               thickness: 0.7,
@@ -405,15 +405,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         height: 30.0,
                       ),
                       // Social media icons
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          GestureDetector(
-                            onTap: _signUpWithGoogle, // Google OAuth Sign-Up
-                            child: Logo(Logos.google), // Google logo
-                          ),
-                        ],
-                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //   children: [
+                      //     GestureDetector(
+                      //       onTap: _signUpWithGoogle, // Google OAuth Sign-Up
+                      //       child: Logo(Logos.google), // Google logo
+                      //     ),
+                      //   ],
+                      // ),
 
                       const SizedBox(
                         height: 25.0,

@@ -366,18 +366,18 @@ class _SignInScreenState extends State<SignInScreen> {
                               color: Colors.grey.withOpacity(0.5),
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 0,
-                              horizontal: 10,
-                            ),
-                            child: Text(
-                              'Sign up with',
-                              style: TextStyle(
-                                color: Colors.black45,
-                              ),
-                            ),
-                          ),
+                          // const Padding(
+                          //   padding: EdgeInsets.symmetric(
+                          //     vertical: 0,
+                          //     horizontal: 10,
+                          //   ),
+                          //   child: Text(
+                          //     'Sign up with',
+                          //     style: TextStyle(
+                          //       color: Colors.black45,
+                          //     ),
+                          //   ),
+                          // ),
                           Expanded(
                             child: Divider(
                               thickness: 0.7,
@@ -389,15 +389,15 @@ class _SignInScreenState extends State<SignInScreen> {
                       const SizedBox(
                         height: 25.0,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          GestureDetector(
-                            onTap: _signInWithGoogle, // Trigger Google Sign-In
-                            child: Logo(Logos.google), // Google logo
-                          ),
-                        ],
-                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //   children: [
+                      //     GestureDetector(
+                      //       onTap: _signInWithGoogle, // Trigger Google Sign-In
+                      //       child: Logo(Logos.google), // Google logo
+                      //     ),
+                      //   ],
+                      // ),
                       const SizedBox(
                         height: 25.0,
                       ),

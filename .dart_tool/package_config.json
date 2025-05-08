@@ -830,10 +830,10 @@
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2025-04-26T14:18:04.906278Z",
+  "generated": "2025-05-08T02:22:15.520899Z",
   "generator": "pub",
-  "generatorVersion": "3.7.0",
+  "generatorVersion": "3.7.2",
   "flutterRoot": "file:///C:/flutter",
-  "flutterVersion": "3.29.1",
+  "flutterVersion": "3.29.3",
   "pubCache": "file:///C:/Users/alanv/AppData/Local/Pub/Cache"
 }
