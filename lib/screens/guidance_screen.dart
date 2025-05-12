@@ -28,11 +28,12 @@ class _GuidanceScreenState extends State<GuidanceScreen> {
 
   // API Endpoints
   final String startConversationApiUrl =
-      'http://192.168.1.6:8000/start-conversation';
-  final String answerQuestionApiUrl = 'http://192.168.1.6:8000/answer-question';
+      'http://192.168.1.9:8000/start-conversation';
+  final String answerQuestionApiUrl =
+      'http://192.168.1.9:8000-/answer-question';
   final String generateResponseApiUrl =
-      'http://192.168.1.6:8000/generate-response';
-  final String followUpApiUrl = 'http://192.168.1.6:8000/follow-up';
+      'http://192.168.1.9:8000/generate-response';
+  final String followUpApiUrl = 'http://192.168.1.9:8000/follow-up';
 
   Future<void> _sendMessage(String message) async {
     setState(() {
@@ -57,27 +58,33 @@ class _GuidanceScreenState extends State<GuidanceScreen> {
             conversationId = responseData["conversation_id"];
             currentQuestion = responseData["message"];
             currentIndex = responseData["current_index"] ?? 0;
-            _messages
-                .add({"sender": "bot", "message": responseData["message"]});
+            _messages.add({
+              "sender": "bot",
+              "message": responseData["message"],
+            });
           });
         } else {
           _showCustomSnackBar("Error: ${response.body}", Colors.red);
         }
-      } else if (currentQuestion
-          .toLowerCase()
-          .contains("all questions answered")) {
+      } else if (currentQuestion.toLowerCase().contains(
+        "all questions answered",
+      )) {
         // Handle follow-up questions
         final followUpResponse = await http.post(
           Uri.parse(followUpApiUrl),
           headers: {'Content-Type': 'application/json'},
-          body: jsonEncode(
-              {'question': message, 'conversation_id': conversationId}),
+          body: jsonEncode({
+            'question': message,
+            'conversation_id': conversationId,
+          }),
         );
         if (followUpResponse.statusCode == 200) {
           final responseData = jsonDecode(followUpResponse.body);
           setState(() {
-            _messages
-                .add({"sender": "bot", "message": responseData["response"]});
+            _messages.add({
+              "sender": "bot",
+              "message": responseData["response"],
+            });
           });
         } else {
           _showCustomSnackBar("Error: ${followUpResponse.body}", Colors.red);
@@ -90,7 +97,7 @@ class _GuidanceScreenState extends State<GuidanceScreen> {
           body: jsonEncode({
             'answer': message,
             'current_index': currentIndex,
-            'conversation_id': conversationId
+            'conversation_id': conversationId,
           }),
         );
 
@@ -154,13 +161,14 @@ class _GuidanceScreenState extends State<GuidanceScreen> {
       final pdf = pw.Document();
       pdf.addPage(
         pw.Page(
-          build: (context) => pw.Padding(
-            padding: const pw.EdgeInsets.all(16),
-            child: pw.Text(
-              finalCaseSummary!,
-              style: pw.TextStyle(fontSize: 16),
-            ),
-          ),
+          build:
+              (context) => pw.Padding(
+                padding: const pw.EdgeInsets.all(16),
+                child: pw.Text(
+                  finalCaseSummary!,
+                  style: pw.TextStyle(fontSize: 16),
+                ),
+              ),
         ),
       );
 
@@ -170,18 +178,22 @@ class _GuidanceScreenState extends State<GuidanceScreen> {
       final date = _extractCaseDetail('Incident Date');
 
       // Sanitize and build the file name
-      final sanitizedLocation =
-          location.replaceAll(RegExp(r'[^\w\s]'), '').replaceAll(' ', '_');
-      final sanitizedPerson =
-          person.replaceAll(RegExp(r'[^\w\s]'), '').replaceAll(' ', '_');
-      final sanitizedDate =
-          date.replaceAll(RegExp(r'[^\w\s]'), '').replaceAll(' ', '_');
+      final sanitizedLocation = location
+          .replaceAll(RegExp(r'[^\w\s]'), '')
+          .replaceAll(' ', '_');
+      final sanitizedPerson = person
+          .replaceAll(RegExp(r'[^\w\s]'), '')
+          .replaceAll(' ', '_');
+      final sanitizedDate = date
+          .replaceAll(RegExp(r'[^\w\s]'), '')
+          .replaceAll(' ', '_');
 
-      final fileName = (sanitizedLocation != 'Unknown' ||
-              sanitizedPerson != 'Unknown' ||
-              sanitizedDate != 'Unknown')
-          ? 'Case_${sanitizedLocation}_${sanitizedPerson}_${sanitizedDate}.pdf'
-          : 'Case_${DateTime.now().millisecondsSinceEpoch}.pdf';
+      final fileName =
+          (sanitizedLocation != 'Unknown' ||
+                  sanitizedPerson != 'Unknown' ||
+                  sanitizedDate != 'Unknown')
+              ? 'Case_${sanitizedLocation}_${sanitizedPerson}_${sanitizedDate}.pdf'
+              : 'Case_${DateTime.now().millisecondsSinceEpoch}.pdf';
 
       // Save the file to the application's documents directory
       final directory = await getApplicationDocumentsDirectory();
@@ -230,15 +242,10 @@ class _GuidanceScreenState extends State<GuidanceScreen> {
 
   void _showCustomSnackBar(String message, Color backgroundColor) {
     final snackBar = SnackBar(
-      content: Text(
-        message,
-        style: const TextStyle(color: Colors.white),
-      ),
+      content: Text(message, style: const TextStyle(color: Colors.white)),
       backgroundColor: backgroundColor,
       behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       margin: const EdgeInsets.all(10.0),
       duration: const Duration(seconds: 2),
       action: SnackBarAction(
@@ -259,7 +266,10 @@ class _GuidanceScreenState extends State<GuidanceScreen> {
         title: const Text(
           "Guidance",
           style: TextStyle(
-              fontSize: 17, color: Colors.white, fontWeight: FontWeight.bold),
+            fontSize: 17,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       body: Container(
@@ -284,8 +294,9 @@ class _GuidanceScreenState extends State<GuidanceScreen> {
                       child: Row(
                         children: [
                           const CircleAvatar(
-                            backgroundImage:
-                                AssetImage('assets/images/bot.png'),
+                            backgroundImage: AssetImage(
+                              'assets/images/bot.png',
+                            ),
                             radius: 20,
                           ),
                           const SizedBox(width: 8),
@@ -296,14 +307,16 @@ class _GuidanceScreenState extends State<GuidanceScreen> {
                   }
                   final message = _messages[index];
                   return Container(
-                    alignment: message["sender"] == "user"
-                        ? Alignment.centerRight
-                        : Alignment.centerLeft,
+                    alignment:
+                        message["sender"] == "user"
+                            ? Alignment.centerRight
+                            : Alignment.centerLeft,
                     padding: const EdgeInsets.all(8),
                     child: Column(
-                      crossAxisAlignment: message["sender"] == "user"
-                          ? CrossAxisAlignment.end
-                          : CrossAxisAlignment.start,
+                      crossAxisAlignment:
+                          message["sender"] == "user"
+                              ? CrossAxisAlignment.end
+                              : CrossAxisAlignment.start,
                       children: [
                         Bubble(
                           message: message["message"]!,
@@ -312,26 +325,32 @@ class _GuidanceScreenState extends State<GuidanceScreen> {
                         if (message["message"] == finalCaseSummary)
                           Padding(
                             padding: const EdgeInsets.only(
-                                top: 8.0), // Add some space above the buttons
+                              top: 8.0,
+                            ), // Add some space above the buttons
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment
-                                  .center, // Center the buttons horizontally
+                              mainAxisAlignment:
+                                  MainAxisAlignment
+                                      .center, // Center the buttons horizontally
                               children: [
                                 ElevatedButton(
                                   onPressed: _saveCaseSummary,
                                   child: const Text("Save Case"),
                                   style: ElevatedButton.styleFrom(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 20, vertical: 12),
+                                      horizontal: 20,
+                                      vertical: 12,
+                                    ),
                                     backgroundColor: Colors.blue,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(
-                                          8), // Rounded corners for a modern look
+                                        8,
+                                      ), // Rounded corners for a modern look
                                     ), // Set a color for the button
                                   ),
                                 ),
                                 const SizedBox(
-                                    width: 20), // Add space between the buttons
+                                  width: 20,
+                                ), // Add space between the buttons
                                 // ElevatedButton(
                                 //   onPressed:
                                 //       _startNewCase, // Replace with the start new case function
@@ -366,10 +385,13 @@ class _GuidanceScreenState extends State<GuidanceScreen> {
                         filled: true,
                         fillColor: Colors.blue.withOpacity(0.9),
                         hintText: "Enter your message",
-                        hintStyle:
-                            TextStyle(color: Colors.white.withOpacity(1)),
+                        hintStyle: TextStyle(
+                          color: Colors.white.withOpacity(1),
+                        ),
                         contentPadding: const EdgeInsets.symmetric(
-                            vertical: 15.0, horizontal: 20.0),
+                          vertical: 15.0,
+                          horizontal: 20.0,
+                        ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30.0),
                           borderSide: BorderSide.none,
@@ -402,11 +424,8 @@ class Bubble extends StatelessWidget {
   final String message;
   final bool isUserMessage;
 
-  const Bubble({
-    Key? key,
-    required this.message,
-    required this.isUserMessage,
-  }) : super(key: key);
+  const Bubble({Key? key, required this.message, required this.isUserMessage})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
