@@ -28,12 +28,11 @@ class _GuidanceScreenState extends State<GuidanceScreen> {
 
   // API Endpoints
   final String startConversationApiUrl =
-      'http://192.168.1.9:8000/start-conversation';
-  final String answerQuestionApiUrl =
-      'http://192.168.1.9:8000-/answer-question';
+      'http://192.168.1.6:8000/start-conversation';
+  final String answerQuestionApiUrl = 'http://192.168.1.6:8000/answer-question';
   final String generateResponseApiUrl =
-      'http://192.168.1.9:8000/generate-response';
-  final String followUpApiUrl = 'http://192.168.1.9:8000/follow-up';
+      'http://192.168.1.6:8000/generate-response';
+  final String followUpApiUrl = 'http://192.168.1.6:8000/follow-up';
 
   Future<void> _sendMessage(String message) async {
     setState(() {
@@ -67,8 +66,8 @@ class _GuidanceScreenState extends State<GuidanceScreen> {
           _showCustomSnackBar("Error: ${response.body}", Colors.red);
         }
       } else if (currentQuestion.toLowerCase().contains(
-        "all questions answered",
-      )) {
+            "all questions answered",
+          )) {
         // Handle follow-up questions
         final followUpResponse = await http.post(
           Uri.parse(followUpApiUrl),
@@ -161,14 +160,13 @@ class _GuidanceScreenState extends State<GuidanceScreen> {
       final pdf = pw.Document();
       pdf.addPage(
         pw.Page(
-          build:
-              (context) => pw.Padding(
-                padding: const pw.EdgeInsets.all(16),
-                child: pw.Text(
-                  finalCaseSummary!,
-                  style: pw.TextStyle(fontSize: 16),
-                ),
-              ),
+          build: (context) => pw.Padding(
+            padding: const pw.EdgeInsets.all(16),
+            child: pw.Text(
+              finalCaseSummary!,
+              style: pw.TextStyle(fontSize: 16),
+            ),
+          ),
         ),
       );
 
@@ -178,22 +176,18 @@ class _GuidanceScreenState extends State<GuidanceScreen> {
       final date = _extractCaseDetail('Incident Date');
 
       // Sanitize and build the file name
-      final sanitizedLocation = location
-          .replaceAll(RegExp(r'[^\w\s]'), '')
-          .replaceAll(' ', '_');
-      final sanitizedPerson = person
-          .replaceAll(RegExp(r'[^\w\s]'), '')
-          .replaceAll(' ', '_');
-      final sanitizedDate = date
-          .replaceAll(RegExp(r'[^\w\s]'), '')
-          .replaceAll(' ', '_');
+      final sanitizedLocation =
+          location.replaceAll(RegExp(r'[^\w\s]'), '').replaceAll(' ', '_');
+      final sanitizedPerson =
+          person.replaceAll(RegExp(r'[^\w\s]'), '').replaceAll(' ', '_');
+      final sanitizedDate =
+          date.replaceAll(RegExp(r'[^\w\s]'), '').replaceAll(' ', '_');
 
-      final fileName =
-          (sanitizedLocation != 'Unknown' ||
-                  sanitizedPerson != 'Unknown' ||
-                  sanitizedDate != 'Unknown')
-              ? 'Case_${sanitizedLocation}_${sanitizedPerson}_${sanitizedDate}.pdf'
-              : 'Case_${DateTime.now().millisecondsSinceEpoch}.pdf';
+      final fileName = (sanitizedLocation != 'Unknown' ||
+              sanitizedPerson != 'Unknown' ||
+              sanitizedDate != 'Unknown')
+          ? 'Case_${sanitizedLocation}_${sanitizedPerson}_${sanitizedDate}.pdf'
+          : 'Case_${DateTime.now().millisecondsSinceEpoch}.pdf';
 
       // Save the file to the application's documents directory
       final directory = await getApplicationDocumentsDirectory();
@@ -307,16 +301,14 @@ class _GuidanceScreenState extends State<GuidanceScreen> {
                   }
                   final message = _messages[index];
                   return Container(
-                    alignment:
-                        message["sender"] == "user"
-                            ? Alignment.centerRight
-                            : Alignment.centerLeft,
+                    alignment: message["sender"] == "user"
+                        ? Alignment.centerRight
+                        : Alignment.centerLeft,
                     padding: const EdgeInsets.all(8),
                     child: Column(
-                      crossAxisAlignment:
-                          message["sender"] == "user"
-                              ? CrossAxisAlignment.end
-                              : CrossAxisAlignment.start,
+                      crossAxisAlignment: message["sender"] == "user"
+                          ? CrossAxisAlignment.end
+                          : CrossAxisAlignment.start,
                       children: [
                         Bubble(
                           message: message["message"]!,
@@ -328,9 +320,8 @@ class _GuidanceScreenState extends State<GuidanceScreen> {
                               top: 8.0,
                             ), // Add some space above the buttons
                             child: Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment
-                                      .center, // Center the buttons horizontally
+                              mainAxisAlignment: MainAxisAlignment
+                                  .center, // Center the buttons horizontally
                               children: [
                                 ElevatedButton(
                                   onPressed: _saveCaseSummary,
@@ -425,7 +416,7 @@ class Bubble extends StatelessWidget {
   final bool isUserMessage;
 
   const Bubble({Key? key, required this.message, required this.isUserMessage})
-    : super(key: key);
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
